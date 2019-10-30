@@ -6,7 +6,13 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello World")
+        NavigationView{
+            Form{
+                Section{
+                    Text("PepeWorld")
+                }
+            }.navigationBarTitle("SwiftUI", displayMode: .inline)
+        }
     }
 }
 
