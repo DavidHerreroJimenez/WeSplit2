@@ -16,13 +16,23 @@ struct ContentView: View {
     
     var body: some View {
         
+        NavigationView{
+        
         Form{
             Section{
                 TextField("Amount", text: $checkAmount).keyboardType(.decimalPad)
+                
+                Picker("Number of people", selection: $numberOfPeople){
+                    ForEach(2 ..< 100){
+                        Text("\($0) people")
+                    }
+                }
             }
             Section{
                 Text("$\(checkAmount)")
             }
+            }.navigationBarTitle("WeSplit")
+            
         }
         
      
