@@ -11,15 +11,9 @@ struct ContentView: View {
     
     var body: some View {
         
-        VStack{
-            
-            NavigationView{
-                
-                Button("Tap Count: \(tapCount)"){
-                    self.tapCount += 1
-                }
-      
-            }
+        Form{
+            TextField("Enter your name:", text: $myName)
+            Text("Hello \(myName)")
         }
     }
 }
