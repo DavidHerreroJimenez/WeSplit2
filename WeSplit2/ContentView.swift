@@ -6,23 +6,26 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var tapCount = 0
-    @State private var myName = ""
-    let students = ["Harry", "Hermione", "Ron"]
+
     
-    @State private var selectedStudent = 0
+    @State private var checkAmount = ""
+    @State private var numberOfPeople = 2
+    @State private var tipPercentage = 2
+    
+    let tipPercentages = [10,15,20,25,0]
     
     var body: some View {
         
-        VStack{
-            Picker("Select your student", selection: $selectedStudent){
-                ForEach(0 ..< students.count) {
-                    Text(self.students[$0])
-                }
+        Form{
+            Section{
+                TextField("Amount", text: $checkAmount).keyboardType(.decimalPad)
             }
-            
-            Text("You chose: Student # \(students[selectedStudent])")
+            Section{
+                Text("$\(checkAmount)")
+            }
         }
+        
+     
     }
 }
 
