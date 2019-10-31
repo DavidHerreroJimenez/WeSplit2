@@ -10,6 +10,7 @@ struct ContentView: View {
     
     @State private var checkAmount = ""
     @State private var numberOfPeople = 2
+    @State private var numberOfPeopleString = ""
     @State private var tipPercentage = 2
     
     let tipPercentages = [10,15,20,25,0]
@@ -25,13 +26,25 @@ struct ContentView: View {
         let tipSelection = Double(tipPercentages[tipPercentage])
         let tipValue = orderAmount / 100 * tipSelection
         let grandTotal = orderAmount + tipValue
-        let peopleCount = Double(numberOfPeople + 2)
+        let peopleCount = Double((Double(numberOfPeopleString) ?? 0) + 2)
         let amountPerPerson = grandTotal / peopleCount
         
         
         
         
         return amountPerPerson
+    }
+    
+    var totalAmountForTheCheck: Double {
+        
+        let orderAmount = Double(checkAmount) ?? 0
+        let tipSelection = Double(tipPercentages[tipPercentage])
+        let tipValue = orderAmount / 100 * tipSelection
+        
+        let totalAmount = Double(orderAmount * tipValue)
+        
+        return totalAmount
+        
     }
     
     var body: some View {
@@ -42,12 +55,12 @@ struct ContentView: View {
                 Section{
                     TextField("Amount", text: $checkAmount).keyboardType(.decimalPad)
                     
-                    Picker("Number of people", selection: $numberOfPeople){
-                        ForEach(2 ..< 100){
-                            Text("\($0) people")
-                        }
-                    }
+                    //                    Picker("Number of people", selection: $numberOfPeople){
+                    //                        ForEach(2 ..< 100){
+                    //                            Text("\($0) people")
+                    //                        }
                     
+                    TextField("Number of people: ", text: $numberOfPeopleString).keyboardType(.decimalPad)
                     
                 }
                 Section{
@@ -60,7 +73,12 @@ struct ContentView: View {
                     }.pickerStyle(SegmentedPickerStyle())
                 }
                 Section{
+                    Text("Amount per person:")
                     Text("$\(totalPerPerson, specifier: "%.2f")")
+                }
+                Section{
+                    Text("Total amount:")
+                    Text("$\(totalAmountForTheCheck, specifier: "%.2f")")
                 }
             }.navigationBarTitle("WeSplit")
             
